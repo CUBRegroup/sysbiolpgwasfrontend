@@ -1,30 +1,32 @@
 language: node_js
 node_js:
-- node
+  - node
 cache: npm
 env:
-  global: 
+  global:
+    - secure: akngK92RdrhgY/pUd+C7m7WNZZFw8Cg9g8lHfEZR8wYCPRFHcN7hk/nPWh3WF2+3Estwfk/UDT6NoK262BGD4fRTIo1efjxLwTS2fOKLETWiT+4qKrZqdTtPyzeZEIXahrcyH0W7WE9ZwyNb9AX1GBcVKHncXsQlZR+tN+Z9ou74vaKBzg4Ac5MdfrWXl/+jnMRk4/nef9NARaMSyr9y1MugJSIG7ZgEfInq+Dql0FUiw22aGy+kb6L5Mt08/8358WV5NsPa6cxa5GTKllQftTY2/Bgj7jw44fWiK0EWAjuUD6F8gf5D7wVih9hWegq4wLjDm+haMLgEOlPFo6ezri17llBZ9fXmBD2jrDkJEBBE2Xj9dZAuJaycF5UFymo3MmE6LRcH6BO2Idp+nQYYWwxothPcP0Hw6kYXxID8XqNBLp6mR3AAF31Ach+8cAT5ZJFWByhlveb2hiPpuFNO6AxHiv9kz4qTOBnCmCSD9aUtrVvqBaYTF5F02McpTve0VwdgxGKA2QnA7aoztdR8YR6dxEwoEfmkrBLWAVr37eIF+Xc6EHdMGiubOoqlaiGI3ijheBzHzeYIXmGB8eAYZrs3R6MjxVdfbm00FYUABfCPqu32fbYTd+Mw7tOgV6t0BZDZnYOnleJEyNCn+oF+rR48ham70BbysyPl5GXl/0M=
+  - secure: jYjjAy4JiS5CK5WH3kKnOIBH+oZp9lDBEiSucIdalegzYc+3LofttTt+NdwZsnzu23JghxDNDfsctp5Y+WcUSGLpF8Si4XYRL8MRmpQ0AV/Twlg9vy1zZCNwKRsc9alKmIPHIGfT8k8Ly7va3udjGUBtR4wGOtpUPBMYSot1hgMWFkg0mW+IR0PVaJGUBNuO1cbxQegfsQMVfk6UiBa1GDPC8QOw6V8VLmDWT4g68d2pW064WJsNsvIz25V2GFos9Fi1AnRDm7LDmYZFXiIdyTRTCn2MbkGb1twdnnLNpeFLKLkVPsXXGSLwr2itQcj1yww/9dFkH1Y6rc9r8h/Q7bRqf10fbUPQO2P7OUrBYWRe1sgdKsWmIEpvZRl/BHokiUF+Tt41F84u90XZeYCWKXrnjT/JkI8eebhffKL6WMrV5cM85xAk6XkTmIXWOU6hQvi0oxeEZCUwlOccuqnw+0c5xo9lDHjcz2Wg1bdtlRyqSa5eIe7F35MU+WdUKR4kC0CCUfrrMEa/zTdO9LeWdjmx1eSYexauSYG43FmShQzYkyFCY2y7jKk+S8e6z2qMNJtx6oHPFL9DANpZddBWIkpwOc4pDe7A+vDuF6uW0m3Qj24wFRSfksyMMojmirZmNETAP6YmwuCLizx0AVYMDNRtxn46BsEXDVfJqdPpaig=
+  - secure: JG5tl4i1QT706B5PXNJ/uecUHME2VNw6hyGjozzeRpg9H+KQtg+Pb4Pno8T3Yp965xKTVuJik9Jeij1/YXuC0mivqTdIt657stvjd7TP1yPS8JDEhL6Pl9h7MTCfoSiuByByh4TxoOXCV4hz6Kki/plA8YrpqJEyzrQDI+OrsNnv/5HG1zm2leO+0ZzbCyJCSkbsY8SX1l+n8d0d0YXrzbHzeiX397VVYuD34fQ1OYR5zpRxJGRmfGZQRgFyDRwO4aa9za/XXb56w0Aku0IQpeISeNUACnWIAAONSW5acfLtTlx+Q4NU7JGZZUYFeEPEJmTpjGYYQ+aF4W6LgNZsiUnqUA8u0O/2URs2VsdmfAlNuw0F7WnKgfYV4YglIjQifnWJR25SDMiUJB0/wXUhu03nUPo744pPK2DyseFcq2QT9uZembMAoibVWyuZmKxO5Q7xu5fRscLftOZY1z/qYZPlzNgVvYR1VtOFNd4x/GReICmGVwd00dqTBDcCd8zt91ao9baA/9KaanCogCKysPfKYkwMjr3eZiMeBT8eUxqyn/3O6z/Q9Sb7nhI1m12R27fJ0utKvMdHflKMuWipKmJtePL0H8RKnh8hx8909Nd/+Qp77Oc5ASeK0Qt4SZJl4CUlnoGtbknaCpgCupjsUIuhr4/9m02kSIyZYMXmLmE=
 script:
-- rm -rf $TRAVIS_BUILD_DIR/build
-- npm run build
-after_success:
-- curl --ftp-create-dirs -T filename sftp://${SFTP_USER}:${SFTP_PASSWORD}@faloladare.com.ng/public_html/filename
+  - rm -rf $TRAVIS_BUILD_DIR/build
+  # npm run test
+  - npm run build
+
 deploy:
   provider: script
   skip_cleanup: true
-  script: scp -r $TRAVIS_BUILD_DIR/build/* ${SSH_USER}@${SSH_HOST}:/${DEPLOY_DIR}
+  script: scp -r $TRAVIS_BUILD_DIR/build/* ${DEPLOY_USER}@${DEPLOY_HOST}:/${DEPLOY_DIRECTORY}
   on:
     branch: master
   local_dir: build
 notifications:
   email: false
 before_install:
-- openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
-  -in deploy_rsa.enc -out deploy_rsa -d
-- openssl aes-256-cbc -K $encrypted_cf62f93d0aa8_key -iv $encrypted_cf62f93d0aa8_iv
-  -in id_rsa2.enc -out .travis/id_rsa2 -d
+  - openssl aes-256-cbc -K $encrypted_db2095f63ba3_key -iv $encrypted_db2095f63ba3_iv
+    -in .travis/deploy_rsa.enc -out .travis/deploy_rsa -d
+
 before_deploy:
-- eval "$(ssh-agent -s)"
-- chmod 600 .travis/id_rsa2
-- ssh-add .travis/id_rsa2
-- echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - eval "$(ssh-agent -s)"
+  - chmod 600 .travis/deploy_rsa
+  - ssh-add .travis/deploy_rsa
+  - echo -e "Host ${SSH_HOST}\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
